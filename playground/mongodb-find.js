@@ -36,12 +36,23 @@ MongoClient.connect('mongodb://localhost:27017/todoApp', (err, db) => {
   //   }
   // });
 
-  db.collection('Users').find({name: 'Reid'}).toArray().then((docs) => {
-     console.log(JSON.stringify(docs, undefined, 2));
-  }, (err) => {
-    if(err){
-      console.log('Unable to fetch todos', err);
-    }
+  // db.collection('Users').find({name: 'Reid'}).toArray().then((docs) => {
+  //    console.log(JSON.stringify(docs, undefined, 2));
+  // }, (err) => {
+  //   if(err){
+  //     console.log('Unable to fetch todos', err);
+  //   }
+  // });
+
+  //deleteMany
+  // db.collection('Todos').deleteMany({text: 'eat lunch'}).then((result) => {
+  //   console.log(result);
+  // });
+
+  //findOneandDelete
+  db.collection('Todos').findOneAndDelete({
+    _id: new ObjectID('59653220bf878a757e3caeed')}).then((result) => {
+    console.log(result);
   });
 
   // db.close();
