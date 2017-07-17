@@ -32,6 +32,8 @@ var UserSchema = new mongoose.Schema({
   }]
 });
 
+// use this when you need to convert to JSON after, cant call stringify
+// on the mongoose object but can on a POJO :D
 UserSchema.methods.toJSON = function() {
   var user = this;
   var userObject = user.toObject();
@@ -49,9 +51,24 @@ UserSchema.methods.generateAuthToken = function () {
     access,
     token
   });
-
   return user.save().then(() => {
     return token;
+  });
+};
+
+UserSchema.statics.findByToken = function (token) {
+  var User = this;
+  var decoded;
+
+  try {
+    decoded=jwt.verify(token, 'woohoo');
+  } catch (e) {
+    return Promise.reject();
+  }
+  return User.findOne({
+    '_id': decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
   });
 };
 
