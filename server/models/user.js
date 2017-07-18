@@ -91,6 +91,8 @@ UserSchema.pre('save', function(next) {
 UserSchema.statics.findByCredentials = function (email, password) {
   return User.findOne({email}).then((user) => {
     if(!user) {
+      // returning a rejected promise will trigger a catch in the function
+      // it is being called from
       return Promise.reject();
     }
     return new Promise((resolve, reject) => {

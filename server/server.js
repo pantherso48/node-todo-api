@@ -120,6 +120,8 @@ app.get('/users/me', authenticate, (req, res) => {
 app.post('/users/login', (req, res) => {
   var body = new User(_.pick(req.body, ['email','password']));
 
+  // User-static is a model method that encompasses the object of users, user
+  // method-mind the case in 'u' is used on select user documents in the object
   User.findByCredentials(body.email, body.password).then((user) => {
     user.generateAuthToken().then((token) => {
       res.header('x-auth', token).send(user);
