@@ -31,7 +31,7 @@ const users = [{
   password: '!sdafsf34344',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({_id: idone, access: 'auth'}, 'woohoo').toString()
+    token: jwt.sign({_id: idone, access: 'auth'}, process.env.JWT_SECRET).toString()
   }]
 }, {
   _id: idtwo,
@@ -39,7 +39,7 @@ const users = [{
   password: 'asdfaf333!',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({_id: idtwo, access: 'auth'}, 'woohoo').toString()
+    token: jwt.sign({_id: idtwo, access: 'auth'}, process.env.JWT_SECRET).toString()
   }]
 }];
 
